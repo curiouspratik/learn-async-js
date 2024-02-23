@@ -45,6 +45,10 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify(incidents.filter((incident) => {
                 return incident.id === `MABOS00${id}`
             })));
+        } else {
+            // If the request is for the endpoint but parameters are missing, send a bad request response
+            res.writeHead(400, { 'Content-Type': 'text/plain' });
+            res.end('Bad request, missing parameters');
         }
     } else {
         // If the request is for an unsupported endpoint, send a not found response
